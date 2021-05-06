@@ -120,6 +120,8 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = str(APPS_DIR('media'))
 MEDIA_URL = '/media/'
 
+# Models default ID
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Admins
 ADMINS = [

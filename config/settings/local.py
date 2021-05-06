@@ -13,7 +13,7 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ROOT_DIR / 'local.sqlite3',
+        'NAME': str(ROOT_DIR.path('local.sqlite3')),
     }
 }
 
