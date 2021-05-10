@@ -7,7 +7,7 @@ from django.urls import include, path
 
 # Versioning API URLs
 v1_urls = [
-    path('users/', include(('unidigi.users.urls', 'users'), namespace='users')),
+    path('', include(('unidigi.users.urls', 'users'), namespace='users')),
 ]
 
 # API's root URLs

@@ -4,13 +4,13 @@
 from django.urls import include, path
 
 # DRF
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 
 # Unidigi
 from .api.viewsets import UserViewSet
 
 
-router = DefaultRouter()
+router = SimpleRouter()
 router.register(r'users', UserViewSet, basename='users')
 
 

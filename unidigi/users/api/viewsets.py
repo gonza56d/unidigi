@@ -4,6 +4,7 @@
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 # Unidigi
@@ -15,8 +16,8 @@ from .serializers import (
 )
 
 
-class UserViewSet(#ListModelMixin,
-                  #RetrieveModelMixin,
+class UserViewSet(ListModelMixin,
+                  RetrieveModelMixin,
                   viewsets.GenericViewSet):
     """Viewset for logging in, signing up, listing, retrieving, and updating
     users.
@@ -25,6 +26,13 @@ class UserViewSet(#ListModelMixin,
     serializer_class = UserSerializer
     queryset = User.objects.all()
     lookup_field = 'username'
+
+    def get_permissions(self):
+        """Require authentication to see other user accounts.
+        """
+        if self.action in ['list', 'retrieve']:
+            return [IsAuthenticated()]
+        return []
 
     @action(detail=False, methods=['POST'])
     def sign_up(self, request):
