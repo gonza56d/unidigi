@@ -14,6 +14,15 @@ from ..models import User, Profile
 from .. import services as user_services
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    """Serializer to represent Profile model.
+    """
+
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'last_name', 'birthday', 'role']
+
+
 class UserSerializer(serializers.ModelSerializer):
     """Serializer to represent User model.
     """
@@ -21,6 +30,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'created', 'profile']
+
+    profile = ProfileSerializer(read_only=True)
 
 
 class UserSignUpSerializer(serializers.Serializer):
