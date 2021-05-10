@@ -16,7 +16,7 @@ class UserManager(DjangoUserManager):
     """
 
     def _create_user(self, username, email, password, first_name, last_name,
-                     **extra_fields):
+                     role, **extra_fields):
         """Ensure username and email are in all-lowercase before calling the
         framework implementation of method.
         """
@@ -34,16 +34,17 @@ class UserManager(DjangoUserManager):
             Profile.objects.create(
                 user=user,
                 first_name=first_name,
-                last_name=last_name
+                last_name=last_name,
+                role=role
             )
         return user
 
     def create_user(self, username, email=None, password=None, first_name=None,
-                    last_name=None, **extra_fields):
+                    last_name=None, role=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(username, email, password, first_name, 
-                                 last_name, **extra_fields)
+                                 last_name, role=role, **extra_fields)
 
     def create_superuser(self, username, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -55,7 +56,7 @@ class UserManager(DjangoUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self._create_user(username, email, password, first_name='Admin',
-                                 last_name='Admin', **extra_fields)
+                                 last_name='Admin', role='T', **extra_fields)
 
 
 class User(BaseModel, AbstractUser):
